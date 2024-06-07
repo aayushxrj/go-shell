@@ -17,6 +17,13 @@ func main() {
 			os.Exit(0)
 		}
 
-		fmt.Fprint(os.Stdout, input[:len(input)-1]+": command not found\n")
+		input = input[:len(input)-1]
+
+		switch input {
+		case "exit 0":
+			os.Exit(0)
+		default:
+			fmt.Fprint(os.Stdout, input+": command not found\n")
+		}
 	}
 }
