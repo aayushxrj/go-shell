@@ -28,12 +28,15 @@ func main() {
 				fmt.Fprintln(os.Stdout, strings.Join(args[1:], " "))
 			}
 		case "type":
-			switch args[1] {
-			case "echo", "exit", "type":
-				fmt.Fprint(os.Stdout,  args[1]+" is a shell builtin\n")
-			default:
-				fmt.Fprint(os.Stdout, args[1]+" not found\n")
+			if len(args) > 1 {
+				switch args[1] {
+				case "echo", "exit", "type":
+					fmt.Fprint(os.Stdout,  args[1]+" is a shell builtin\n")
+				default:
+					fmt.Fprint(os.Stdout, args[1]+" not found\n")
+				}
 			}
+
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)
