@@ -32,7 +32,7 @@ func main() {
 		case "type":
 			if len(args) > 1 {
 				switch args[1] {
-				case "echo", "pwd", "type", "exit":
+				case "echo", "pwd", "cd","type", "exit":
 					fmt.Fprint(os.Stdout,  args[1]+" is a shell builtin\n")
 				default:
 						pathEnv := os.Getenv("PATH")
@@ -58,6 +58,13 @@ func main() {
 				fmt.Fprint(os.Stdout, err)
 			}
 			fmt.Fprint(os.Stdout, dir+"\n")
+		case "cd":
+			if len(args) > 1 {
+				err := os.Chdir(args[1])
+				if err != nil {
+					fmt.Fprintln(os.Stdout, args[1]+": No such file or directory")
+				}
+			} 
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)

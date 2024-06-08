@@ -7,8 +7,8 @@ Go Shell is a [POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/utilities
 - [x] echo
 - [x] type
 - [x] exit
-- [ ] pwd
-- [ ] cd
+- [X] pwd
+- [X] cd
 
 ## Getting Started
 
