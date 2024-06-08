@@ -1,0 +1,10 @@
+services:
+  myshell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aayushxrj/go-shell:latest
+    # stdin_open: true
+    # tty: true
+
+# docker-compose run myshell
