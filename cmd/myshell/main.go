@@ -32,7 +32,7 @@ func main() {
 		case "type":
 			if len(args) > 1 {
 				switch args[1] {
-				case "echo", "exit", "type":
+				case "echo", "pwd", "type", "exit":
 					fmt.Fprint(os.Stdout,  args[1]+" is a shell builtin\n")
 				default:
 						pathEnv := os.Getenv("PATH")
@@ -52,6 +52,12 @@ func main() {
 						}
 				}
 			}
+		case "pwd":
+			dir, err := os.Getwd()
+			if err != nil {
+				fmt.Fprint(os.Stdout, err)
+			}
+			fmt.Fprint(os.Stdout, dir+"\n")
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)
