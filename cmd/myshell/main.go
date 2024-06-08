@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -51,14 +52,20 @@ func main() {
 						}
 				}
 			}
-			
-			
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)
 			}
 		default:
-			fmt.Fprint(os.Stdout, input+": command not found\n")
+			// fmt.Fprint(os.Stdout, input+": command not found\n")
+			command := exec.Command(args[0], args[1:]...)
+			command.Stdout = os.Stdout
+			command.Stderr = os.Stderr
+
+			err := command.Run()
+			if err != nil {
+				fmt.Fprint(os.Stdout, args[0]+": command not found\n")
+			}
 		}
 	}
 }
