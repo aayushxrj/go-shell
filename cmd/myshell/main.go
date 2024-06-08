@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"path/filepath"
 )
 
 func main() {
@@ -33,10 +34,25 @@ func main() {
 				case "echo", "exit", "type":
 					fmt.Fprint(os.Stdout,  args[1]+" is a shell builtin\n")
 				default:
-					fmt.Fprint(os.Stdout, args[1]+" not found\n")
+						pathEnv := os.Getenv("PATH")
+						paths := strings.Split(pathEnv, ":")
+						found := false
+						for _, path := range paths {
+							fullPath := filepath.Join(path, args[1])
+							_, err := os.Stat(fullPath)
+							if err == nil {
+								fmt.Fprint(os.Stdout, args[1]+" is "+fullPath+"\n")
+								found = true
+								break
+							}
+						}
+						if !found {
+							fmt.Fprint(os.Stdout, args[1]+": not found\n")
+						}
 				}
 			}
-
+			
+			
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)
