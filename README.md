@@ -9,6 +9,10 @@ Go Shell is a [POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/utilities
 - [x] exit
 - [X] pwd
 - [X] cd
+- [ ] | piping operator
+- [ ] >, >> redirection operators
+- [ ] history
+- [ ] autocompletion
 
 ## Getting Started
 

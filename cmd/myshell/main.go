@@ -60,11 +60,23 @@ func main() {
 			fmt.Fprint(os.Stdout, dir+"\n")
 		case "cd":
 			if len(args) > 1 {
-				err := os.Chdir(args[1])
-				if err != nil {
-					fmt.Fprintln(os.Stdout, args[1]+": No such file or directory")
+				if args[1] == "~" {
+					err := os.Chdir(os.Getenv("HOME"))
+					if err != nil {
+						fmt.Fprintln(os.Stdout, err)
+					}
+				} else {
+					err := os.Chdir(args[1])
+					if err != nil {
+						fmt.Fprintln(os.Stdout, args[1]+": No such file or directory")
+					}
 				}
-			} 
+			} else {
+				err := os.Chdir(os.Getenv("HOME"))
+				if err != nil {
+					fmt.Fprintln(os.Stdout, err)
+				}
+			}
 		case "exit":
 			if len(args) > 1 && args[1] == "0" {
 				os.Exit(0)
